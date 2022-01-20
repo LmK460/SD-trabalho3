@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package arCond; 
+
+service ServiceArCond {
+  rpc TurnOnArCond (ArCondRequest) returns (ArCondReply) {}
+}
+
+message ArCondRequest {
+  string value = 1;
+}
+
+message ArCondReply {
+  string message = 1;
+}
