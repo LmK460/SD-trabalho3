@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package MyPackage;
+
+service AirCond{
+    rpc getState(google.protobuf.Empty) returns (AirCondState) {}
+    rpc setState(AirCondState) returns (google.protobuf.Empty) {}
+}
+
+
+message AirCondState{
+    enum State{
+        OFF = 0;
+        WEAK = 1;
+        MEDIUM = 2;
+        STRONG = 3;
+    }
+    State state = 1;
+}
+
+//python3 -m grpc_tools.protoc -I./proto --python_out=. --grpc_python_out=. ./proto/air_cond.proto
