@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 import pika, sys, os, traceback
-from generated import measure_pb2
+import measure_pb2
 
 last_measures = {}
 
 def callback_temp(ch, method, properties, body):
     message = measure_pb2.Measure()
     message.ParseFromString(body)
-    last_measures['temp'] = message.value
+    value = message.value
+    last_measures['temp'] = value
     print('temp:{}'.format(last_measures['temp']))
+
+    #if value<25:
 
 def callback_light(ch, method, properties, body):
     message = measure_pb2.Measure()

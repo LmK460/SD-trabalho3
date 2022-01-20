@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import pika, random, sys, os, traceback, time
 
-from generated import measure_pb2
+import measure_pb2
 
 class Measurer:
     def __init__(self, type, min_value, max_value, time_delay) -> None:

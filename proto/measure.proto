@@ -6,4 +6,4 @@ message Measure{
     float value = 1;
 }
 
-//protoc -I=./proto --python_out=./generated ./proto/measure.proto
+//protoc -I=./proto --python_out=. ./proto/measure.proto
