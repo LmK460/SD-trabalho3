@@ -9,12 +9,12 @@ import lamp_pb2_grpc
 from watering_can_pb2 import WateringCanState
 import watering_can_pb2_grpc
 
-channelAC = grpc.insecure_channel('localhost:50051')
+'''channelAC = grpc.insecure_channel('localhost:50051')
 stub_aircond = air_cond_pb2_grpc.AirCondStub(channelAC)
 channelL = grpc.insecure_channel('localhost:50052')
 stub_lamp = lamp_pb2_grpc.LampStub(channelL)
 channelWC = grpc.insecure_channel('localhost:50053')
-stub_water_can = watering_can_pb2_grpc.WateringCanStub(channelWC)
+stub_water_can = watering_can_pb2_grpc.WateringCanStub(channelWC)'''
 
 last_measures = {}
 
@@ -25,12 +25,12 @@ def callback_temp(ch, method, properties, body):
     last_measures['temp'] = value
     print('temp:{}'.format(last_measures['temp']))
 
-    airCondState = AirCondState()
+    ''' airCondState = AirCondState()
     if value<25: airCondState.state = AirCondState.WEAK
     elif value<32: airCondState.state = AirCondState.MEDIUM
     else: airCondState.state = AirCondState.STRONG
 
-    stub_aircond.setState(airCondState)
+    stub_aircond.setState(airCondState)'''
 
 
 def callback_light(ch, method, properties, body):
@@ -40,13 +40,13 @@ def callback_light(ch, method, properties, body):
     last_measures['light'] = value
     print('light:{}'.format(last_measures['light']))
 
-    lampState = LampState()
+    '''lampState = LampState()
     if value<15:
         lampState.state = LampState.ON
         stub_lamp.setState(lampState)
     elif value>25:
         lampState.state = LampState.OFF
-        stub_lamp.setState(lampState)
+        stub_lamp.setState(lampState)'''
     
 
 def callback_hum(ch, method, properties, body):
@@ -56,13 +56,13 @@ def callback_hum(ch, method, properties, body):
     last_measures['hum'] = value
     print('hum:{}'.format(last_measures['hum']))
 
-    wateringCanState = WateringCanState()
+    '''wateringCanState = WateringCanState()
     if value<55:
         wateringCanState.state = WateringCanState.ON
         stub_lamp.setState(wateringCanState)
     elif value>70:
         wateringCanState.state = WateringCanState.OFF
-        stub_lamp.setState(wateringCanState)
+        stub_lamp.setState(wateringCanState)'''
 
 def main():
     connection = pika.BlockingConnection(
