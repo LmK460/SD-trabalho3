@@ -32,7 +32,7 @@ def obterLuminosidade():
     return response
 
 @router.get('/hum')
-def obterHumidaade():
+def obterHumidade():
     print("Tomando a humidade")
     rpc = ApiRpcClient('hum')
     response = rpc.call()
@@ -40,19 +40,53 @@ def obterHumidaade():
     print(response)
     return response
 
+@router.get('/lamp')
+def ObterStatusLampada():
+    print("Recuperando o Estado da Lampada")
+    rpc = ApiRpcClient('Lamp')
+    response = rpc.call()
+    print("Resposta")
+    if(response ==""):
+        response = 'OFF'
+    print(response)
+    return response
+
+@router.get('/air')
+def ObterStatusAr():
+    print("Recuperando o estado do Ar")
+    rpc = ApiRpcClient('Air')
+    response = rpc.call()
+    print("Resposta")
+    if(response ==""):
+        response = 'OFF'
+    print(response)
+    return response
+
+@router.get('/wat')
+def obterStatusWat():
+    print("Recuperando o estado do Irrigador")
+    rpc = ApiRpcClient('Wat')
+    response = rpc.call()
+    print("Resposta")
+    if(response ==""):
+        response = 'OFF'
+    print(response)
+    return response
 
 @router.post('/air')
 def alterarTemperatura(inputData:Model):
     print("alterando a temperatura")
     rpc = ApiRpcClientPost(inputData.estado, inputData.name)
     response = rpc.call()
+    if(response ==""):
+        response = 'OFF'
     print("Resposta")
     print(response)
     return response
 
 
 @router.post('/onlight')
-def LigaLampada(inputData:Model):
+def ligaLampada(inputData:Model):
     print("Ligando a Lampada")
     rpc = ApiRpcClientPost("1", inputData.name)
     response = rpc.call()
@@ -61,26 +95,30 @@ def LigaLampada(inputData:Model):
     return response
 
 @router.post('/offlight')
-def DesigaLampada(inputData:Model):
+def desigaLampada(inputData:Model):
     print("Desligando a Lampada")
     rpc = ApiRpcClientPost("0", inputData.name)
     response = rpc.call()
+    if(response ==""):
+        response = 'OFF'
     print("Resposta")
     print(response)
     return response
 
 
 @router.post('/offwat')
-def DesligaIrrigador(inputData:Model):
+def desligaIrrigador(inputData:Model):
     print("Desligando o Irrigador")
     rpc = ApiRpcClientPost("0", inputData.name)
     response = rpc.call()
+    if(response ==""):
+        response = 'OFF'
     print("Resposta")
     print(response)
     return response
 
 @router.post('/onwat')
-def LigaIrrigador(inputData:Model):
+def ligaIrrigador(inputData:Model):
     print("Ligando o Irrigador")
     rpc = ApiRpcClientPost("1", inputData.name)
     response = rpc.call()
